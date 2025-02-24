@@ -129,6 +129,7 @@ data = [
     ("Erdbeereis", "Tiefkühlprodukte", "Liter")
 ]
 
+
 # Convert to DataFrame and sort by category and item (alphabetically within each category)
 df = pd.DataFrame(data, columns=["Artikel", "Kategorie", "Menge"])
 df = df.sort_values(by=["Kategorie", "Artikel"])  # Sort by category and then alphabetically by item
