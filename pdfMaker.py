@@ -3,142 +3,157 @@ from reportlab.lib.pagesizes import letter
 from reportlab.platypus import SimpleDocTemplate, Table, TableStyle
 from reportlab.lib import colors
 
-# Data provided (formatted into a structured list)
 data = [
-    ("Früchtecocktail", "Gemüse & Obst"),
-    ("Ananas", "Gemüse & Obst"),
-    ("Pfirsiche", "Gemüse & Obst"),
-    ("Mohren", "Gemüse & Obst"),
-    ("Ajvar", "Gewürze & Saucen"),
-    ("Zucker", "Gewürze & Saucen"),
-    ("Mais", "Gemüse & Obst"),
-    ("Kartoffeln", "Gemüse & Obst"),
-    ("Essig", "Gemüse & Obst"),
-    ("Vegeta", "Gewürze & Saucen"),
-    ("Salz", "Gewürze & Saucen"),
-    ("Reis", "Getreide, Nudeln & Reis"),
-    ("Paniermehl", "Getreide, Nudeln & Reis"),
-    ("Bandnudeln", "Getreide, Nudeln & Reis"),
-    ("Pommes Frites", "Tiefkühlprodukte"),
-    ("Rösti", "Tiefkühlprodukte"),
-    ("Kroketten", "Tiefkühlprodukte"),
-    ("Rote Bete", "Gemüse & Obst"),
-    ("Brokkoli", "Gemüse & Obst"),
-    ("Blumenkohl", "Gemüse & Obst"),
-    ("Gemüse", "Gemüse & Obst"),
-    ("Mehl", "Getreide, Nudeln & Reis"),
-    ("Tomaten", "Gemüse & Obst"),
-    ("Gurken", "Gemüse & Obst"),
-    ("Champignons", "Gemüse & Obst"),
-    ("Orangen", "Gemüse & Obst"),
-    ("Zitronen", "Gemüse & Obst"),
-    ("Petersilie", "Gemüse & Obst"),
-    ("Eisbergsalat", "Gemüse & Obst"),
-    ("Eier", "Milchprodukte & Eier"),
-    ("French Dressing", "Gewürze & Saucen"),
-    ("Oliven", "Gewürze & Saucen"),
-    ("Krautsalat", "Gewürze & Saucen"),
-    ("Joghurt", "Milchprodukte & Eier"),
-    ("H-Sahne", "Milchprodukte & Eier"),
-    ("Hollandaise", "Gewürze & Saucen"),
-    ("Bernaise", "Gewürze & Saucen"),
-    ("Käse", "Milchprodukte & Eier"),
-    ("Butter", "Milchprodukte & Eier"),
-    ("Himbeersauce", "Gewürze & Saucen"),
-    ("Eis Schokolade", "Tiefkühlprodukte"),
-    ("Eis Vanille", "Tiefkühlprodukte"),
-    ("Zigeunerschnitzelsauce", "Gewürze & Saucen"),
-    ("Schokosauce", "Gewürze & Saucen"),
-    ("Milch", "Milchprodukte & Eier"),
-    ("Camembert", "Milchprodukte & Eier"),
-    ("Kräuterbutter", "Milchprodukte & Eier"),
-    ("Schnecken", "Fleisch & Meeresfrüchte"),
-    ("Grüner Pfeffer", "Gewürze & Saucen"),
-    ("Senf", "Gewürze & Saucen"),
-    ("Bernaisepulver", "Gewürze & Saucen"),
-    ("Rahmsaucepulver", "Gewürze & Saucen"),
-    ("Portion Mayonnaise", "Gewürze & Saucen"),
-    ("Portion Ketchup", "Gewürze & Saucen"),
-    ("Tiefgekühlte Himbeeren", "Tiefkühlprodukte"),
-    ("Schattenmorellen", "Tiefkühlprodukte"),
-    ("Toast", "Getreide, Nudeln & Reis"),
-    ("Öl", "Sonstige"),
-    ("Schweinefilet", "Fleisch & Meeresfrüchte"),
-    ("Schweinelachse", "Fleisch & Meeresfrüchte"),
-    ("Rumpsteak", "Fleisch & Meeresfrüchte"),
-    ("Putensteak", "Fleisch & Meeresfrüchte"),
-    ("Kaffeesahne", "Milchprodukte & Eier"),
-    ("Portion Zucker", "Gewürze & Saucen"),
-    ("Bohnenkaffee", "Getränke (Nicht-alkoholisch)"),
-    ("Plavac", "Weine"),
-    ("Pelješac", "Weine"),
-    ("Dalmatiner", "Weine"),
-    ("Graševina", "Weine"),
-    ("Laški Riesling", "Weine"),
-    ("Traminac", "Weine"),
-    ("Rosé", "Weine"),
-    ("Cola Light", "Getränke (Nicht-alkoholisch)"),
-    ("Cola", "Getränke (Nicht-alkoholisch)"),
-    ("Fanta", "Getränke (Nicht-alkoholisch)"),
-    ("Sprite", "Getränke (Nicht-alkoholisch)"),
-    ("Wasser", "Getränke (Nicht-alkoholisch)"),
-    ("Apfelschorle", "Getränke (Nicht-alkoholisch)"),
-    ("Orangensaft", "Getränke (Nicht-alkoholisch)"),
-    ("Bitter Lemon", "Getränke (Nicht-alkoholisch)"),
-    ("Malzbier", "Getränke (Nicht-alkoholisch)"),
-    ("Alkoholfreies Bier", "Getränke (Nicht-alkoholisch)"),
-    ("Weizenbier", "Biere"),
-    ("Bier Gaffel", "Biere"),
-    ("Krombacher", "Biere"),
-    ("Malteser", "Getränke (Alkoholisch)"),
-    ("Landbier", "Biere"),
-    ("Weizen Fass", "Biere"),
-    ("Sekt", "Getränke (Alkoholisch)"),
-    ("Campari", "Getränke (Alkoholisch)"),
-    ("Korn", "Getränke (Alkoholisch)"),
-    ("Ramazzotti", "Getränke (Alkoholisch)"),
-    ("Jägermeister", "Getränke (Alkoholisch)"),
-    ("Kruškovac", "Getränke (Alkoholisch)"),
-    ("Šljivovica", "Getränke (Alkoholisch)"),
-    ("Pelinkovac", "Getränke (Alkoholisch)"),
-    ("Wodka", "Getränke (Alkoholisch)"),
-    ("Tequila", "Getränke (Alkoholisch)"),
-    ("Ouzo", "Getränke (Alkoholisch)"),
-    ("Jubi", "Getränke (Alkoholisch)"),
-    ("Kabanes", "Getränke (Alkoholisch)"),
-    ("Grappa", "Getränke (Alkoholisch)"),
-    ("Williamsbirne", "Getränke (Alkoholisch)"),
-    ("Amaretto", "Getränke (Alkoholisch)"),
-    ("Jim Beam", "Getränke (Alkoholisch)"),
-    ("Sambuca", "Getränke (Alkoholisch)"),
-    ("Rum", "Getränke (Alkoholisch)"),
-    ("Baileys", "Getränke (Alkoholisch)"),
-    ("Pelinkovac", "Getränke (Alkoholisch)"),
-    ("Linie", "Getränke (Alkoholisch)"),
-    ("Orahovac", "Getränke (Alkoholisch)"),
-    ("Erdbeereis", "Tiefkühlprodukte")
-];
+    ("Früchtecocktail", "Gemüse & Obst", "Dose"),
+    ("Ananas", "Gemüse & Obst", "Dose"),
+    ("Pfirsiche", "Gemüse & Obst", "Dose"),
+    ("Mohren", "Gemüse & Obst", "Kg"),
+    ("Ajvar", "Gewürze & Saucen", "Glass"),
+    ("Zucker", "Gewürze & Saucen", "Kg"),
+    ("Mais", "Gemüse & Obst", "Dose"),
+    ("Kartoffeln", "Gemüse & Obst", "Kg"),
+    ("Essig", "Gemüse & Obst", "Liter"),
+    ("Vegeta", "Gewürze & Saucen", "Kg"),
+    ("Salz", "Gewürze & Saucen", "Kg"),
+    ("Reis", "Getreide, Nudeln & Reis", "Kg"),
+    ("Paniermehl", "Getreide, Nudeln & Reis", "Kg"),
+    ("Bandnudeln", "Getreide, Nudeln & Reis", "Kg"),
+    ("Pommes Frites", "Tiefkühlprodukte", "Kg"),
+    ("Rösti", "Tiefkühlprodukte", "Kg"),
+    ("Kroketten", "Tiefkühlprodukte", "Kg"),
+    ("Brokkoli", "Tiefkühlprodukte", "Kg"),
+    ("Blumenkohl", "Gemüse & Obst", "Kg"),
+    ("Rote Bete", "Gemüse & Obst", "Dose"),
+    ("Gemüse", "Tiefkühlprodukte", "Kg"),
+    ("Mehl", "Getreide, Nudeln & Reis", "Kg"),
+    ("Tomaten", "Gemüse & Obst", "Kg"),
+    ("Gurken", "Gemüse & Obst", "Stück"),
+    ("Champignons", "Gemüse & Obst", "Kg"),
+    ("Orangen", "Gemüse & Obst", "Stück"),
+    ("Zitronen", "Gemüse & Obst", "Stück"),
+    ("Petersilie", "Gemüse & Obst", "Bund"),
+    ("Eisbergsalat", "Gemüse & Obst", "Kopfe"),
+    ("Eier", "Milchprodukte & Eier", "Stück"),
+    ("French Dressing", "Gewürze & Saucen", "Liter"),
+    ("Oliven", "Gewürze & Saucen", "Dose"),
+    ("Kraut", "Gewürze & Saucen", "Kopf"),
+    ("Joghurt", "Milchprodukte & Eier", "Kg"),
+    ("H-Sahne", "Milchprodukte & Eier", "Liter"),
+    ("Hollandaise", "Gewürze & Saucen", "Liter"),
+    ("Bernaise", "Gewürze & Saucen", "Liter"),
+    ("Käse", "Milchprodukte & Eier", "Kg"),
+    ("Butter", "Milchprodukte & Eier", "Stück"),
+    ("Himbeersauce", "Gewürze & Saucen", "Liter"),
+    ("Eis Schokolade", "Tiefkühlprodukte", "Liter"),
+    ("Eis Vanille", "Tiefkühlprodukte", "Liter"),
+    ("Zigeunerschnitzelsauce", "Gewürze & Saucen", "Kg"),
+    ("Schokosauce", "Gewürze & Saucen", "Liter"),
+    ("Milch", "Milchprodukte & Eier", "Liter"),
+    ("Camembert", "Milchprodukte & Eier", "Stück"),
+    ("Kräuterbutter", "Getreide, Nudeln & Reis", "grams"),
+    ("Schnecken", "Fleisch & Meeresfrüchte", ""),
+    ("Grüner Pfeffer", "Gewürze & Saucen", "Dose"),
+    ("Senf", "Gewürze & Saucen", ""),
+    ("Bernaisepulver", "Gewürze & Saucen", ""),
+    ("Rahmsaucepulver", "Gewürze & Saucen", "Kg"),
+    ("Portion Mayonnaise", "Gewürze & Saucen", ""),
+    ("Portion Ketchup", "Gewürze & Saucen", ""),
+    ("Tiefgekühlte Himbeeren", "Tiefkühlprodukte", "Kg"),
+    ("Schattenmorellen", "Tiefkühlprodukte", "Kg"),
+    ("Toast", "Getreide, Nudeln & Reis", "Stück"),
+    ("Öl", "Sonstige", "Liter"),
+    ("Schweinefilet", "Fleisch & Meeresfrüchte", "Kg"),
+    ("Schweinelachse", "Fleisch & Meeresfrüchte", "Kg"),
+    ("Rumpsteak", "Fleisch & Meeresfrüchte", "Kg"),
+    ("Putensteak", "Fleisch & Meeresfrüchte", "Kg"),
+    ("Kaffeesahne", "Milchprodukte & Eier", "Liter"),
+    ("Portion Zucker", "Gewürze & Saucen", "Kg"),
+    ("Bohnenkaffee", "Getränke (Nicht-alkoholisch)", "Kg"),
+    ("Plavac", "Weine", "Liter"),
+    ("Pelješac", "Weine", "Liter"),
+    ("Dalmatiner", "Weine", "Liter"),
+    ("Graševina", "Weine", "Liter"),
+    ("Laški Riesling", "Weine", "Liter"),
+    ("Traminac", "Weine", "Liter"),
+    ("Rosé", "Weine", "Liter"),
+    ("Cola Light", "Getränke (Nicht-alkoholisch)", "Kiste"),
+    ("Cola", "Getränke (Nicht-alkoholisch)", "Kiste"),
+    ("Fanta", "Getränke (Nicht-alkoholisch)", "Kiste"),
+    ("Sprite", "Getränke (Nicht-alkoholisch)", "Kiste"),
+    ("Apfelschorle", "Getränke (Nicht-alkoholisch)", "Kiste"),
+    ("Orangensaft", "Getränke (Nicht-alkoholisch)", "Kiste"),
+    ("Bitter Lemon", "Getränke (Nicht-alkoholisch)", "Kiste"),
+    ("Malzbier", "Getränke (Nicht-alkoholisch)", "Kiste"),
+    ("Alkoholfreies Bier", "Getränke (Nicht-alkoholisch)", "Kiste"),
+    ("Weizen alkoholfrei", "Biere", "Kiste"),
+    ("Bier Gaffel", "Biere", "Fass 50Liter"),
+    ("Krombacher", "Biere", "Fass 50Liter"),
+    ("Malteser", "Getränke (Alkoholisch)", "Flasche"),
+    ("Landbier", "Biere", "Fass 30Liter"),
+    ("Weizen Fass", "Biere", "Fass 30Liter"),
+    ("Sekt", "Getränke (Alkoholisch)", "Flasche"),
+    ("Campari", "Getränke (Alkoholisch)", "Flasche"),
+    ("Korn", "Getränke (Alkoholisch)", "Flasche"),
+    ("Ramazzotti", "Getränke (Alkoholisch)", "Flasche"),
+    ("Jägermeister", "Getränke (Alkoholisch)", "Flasche"),
+    ("Kruškovac", "Getränke (Alkoholisch)", "Liter"),
+    ("Šljivovica", "Getränke (Alkoholisch)", "Liter"),
+    ("Wodka", "Getränke (Alkoholisch)", "Flasche"),
+    ("Tequila", "Getränke (Alkoholisch)", "Flasche"),
+    ("Ouzo", "Getränke (Alkoholisch)", "Flasche"),
+    ("Jubi", "Getränke (Alkoholisch)", "Flasche"),
+    ("Kabanes", "Getränke (Alkoholisch)", "Flasche"),
+    ("Grappa", "Getränke (Alkoholisch)", "Flasche"),
+    ("Williamsbirne", "Getränke (Alkoholisch)", "Flasche"),
+    ("Amaretto", "Getränke (Alkoholisch)", "Flasche"),
+    ("Jim Beam", "Getränke (Alkoholisch)", "Flasche"),
+    ("Sambuca", "Getränke (Alkoholisch)", "Flasche"),
+    ("Rum", "Getränke (Alkoholisch)", "Flasche"),
+    ("Baileys", "Getränke (Alkoholisch)", "Flasche"),
+    ("Pelinkovac", "Getränke (Alkoholisch)", "Flasche"),
+    ("Linie", "Getränke (Alkoholisch)", "Flasche"),
+    ("Orahovac", "Getränke (Alkoholisch)", "Flasche"),
+    ("Bauchspeck", "Fleisch & Meeresfrüchte", "Kg"),
+    ("Garnelle", "Fleisch & Meeresfrüchte", "Kg"),
+    ("Zander", "Fleisch & Meeresfrüchte", "Kg"),
+    ("Krabben", "Fleisch & Meeresfrüchte", "Kg"),
+    ("Lachsfille", "Fleisch & Meeresfrüchte", "Kg"),
+    ("Kirschsaft", "Getränke (Nicht-alkoholisch)", "Kiste"),
+    ("Bananensaft", "Getränke (Nicht-alkoholisch)", "Kiste"),
+    ("Rhababerschorle", "Getränke (Nicht-alkoholisch)", "Kiste"),
+    ("Johannisbeereschorle", "Getränke (Nicht-alkoholisch)", "Kiste"),
+    ("Wasser 0,25", "Getränke (Nicht-alkoholisch)", "Kiste"),
+    ("Stilwasser 0,25", "Getränke (Nicht-alkoholisch)", "Kiste"),
+    ("Wasser 0,7", "Getränke (Nicht-alkoholisch)", "Kiste"),
+    ("Pflanzenfett", "Sonstige", "Liter"),
+    ("Erdbeereis", "Tiefkühlprodukte", "Liter")
+]
 
-# Convert to DataFrame and sort
-df = pd.DataFrame(data, columns=["Artikel", "Kategorie"])
-df = df.sort_values(by="Kategorie")
+# Convert to DataFrame and sort by category and item (alphabetically within each category)
+df = pd.DataFrame(data, columns=["Artikel", "Kategorie", "Menge"])
+df = df.sort_values(by=["Kategorie", "Artikel"])  # Sort by category and then alphabetically by item
 
 # PDF file name
 pdf_file = "restaurant_inventory.pdf"
 pdf = SimpleDocTemplate(pdf_file, pagesize=letter)
 
-# Updated header row
-table_data = [["Artikel", "Menge", "Preis"]]  # Updated Headers
+# Initialize table data with headers
+table_data = [["Artikel", "Menge", "Preis"]]
 
+# Retrieve unique categories
 categories = df["Kategorie"].unique()
-category_indices = []
 
+# Loop through categories and add items to the table
+category_indices = []  # List to track category rows for styling
 for category in categories:
-    table_data.append([category, "", ""])  # Category row
-    category_indices.append(len(table_data) - 1)
+    table_data.append([category, "", ""])  # Add category row
+    category_indices.append(len(table_data) - 1)  # Store the index of the category row
     
-    category_rows = df[df["Kategorie"] == category].apply(lambda x: [x["Artikel"], "", ""], axis=1).tolist()
+    # Add item rows for this category
+    category_rows = df[df["Kategorie"] == category].apply(lambda x: [x["Artikel"], x["Menge"], ""], axis=1).tolist()
     table_data.extend(category_rows)
+    
+    # Add two empty rows for spacing between categories
     table_data.append(["", "", ""])  # Empty row for spacing
     table_data.append(["", "", ""])  # Another empty row for spacing
 
@@ -148,15 +163,23 @@ style = TableStyle([
     ("BACKGROUND", (0, 0), (-1, 0), colors.grey),
     ("TEXTCOLOR", (0, 0), (-1, 0), colors.white),
     ("ALIGN", (0, 0), (-1, 0), "CENTER"),
-    ("GRID", (0, 0), (-1, -1), 1, colors.black)
+    ("GRID", (0, 0), (-1, -1), 1, colors.black),
+    ("FONTNAME", (0, 0), (-1, -1), "Helvetica"),
+    ("FONTSIZE", (0, 0), (-1, -1), 8)
 ])
 
+# Right-align the "Menge" column (index 1)
+style.add("ALIGN", (1, 1), (-1, -1), "RIGHT")
+
+# Style category rows
 for i in category_indices:
-    style.add("SPAN", (0, i), (-1, i))
-    style.add("BACKGROUND", (0, i), (-1, i), colors.lightgrey)
-    style.add("ALIGN", (0, i), (-1, i), "CENTER")
+    style.add("SPAN", (0, i), (-1, i))  # Span the whole row for the category
+    style.add("BACKGROUND", (0, i), (-1, i), colors.lightgrey)  # Light grey background for category row
+    style.add("ALIGN", (0, i), (-1, i), "CENTER")  # Center-align the category row
 
 table.setStyle(style)
+
+# Build and save the PDF
 pdf.build([table])
 
 print(f"PDF saved as {pdf_file}")
